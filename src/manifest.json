@@ -22,7 +22,7 @@
   "permissions": [
     "storage",
     "webRequest",
-    "tabs",
+    "activeTab",
     "<all_urls>"
   ]
 }

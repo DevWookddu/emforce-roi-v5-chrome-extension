@@ -3,6 +3,7 @@ global.browser = require('webextension-polyfill');
 function initTabById(tabId) {
   tabs[tabId] = [];
   setBadgeText(0);
+  setListToStorage([]);
 }
 
 function setBadgeText(val) {
