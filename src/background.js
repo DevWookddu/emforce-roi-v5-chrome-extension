@@ -23,6 +23,12 @@ chrome.storage.local.clear();
 
 const tabs = {};
 
+chrome.tabs.onActivated.addListener(activeInfo => {
+  const trackList = tabs[activeInfo.tabId] || [];
+  setBadgeText(trackList.length);
+  setListToStorage(trackList);
+});
+
 chrome.tabs.onCreated.addListener(tab => {
   initTabById(tab.id);
 });
@@ -31,12 +37,6 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
   if (changeInfo.status === 'loading') {
     initTabById(tabId);
   }
-});
-
-chrome.tabs.onActivated.addListener(activeInfo => {
-  const trackList = tabs[activeInfo.tabId];
-  setBadgeText(trackList.length);
-  setListToStorage(trackList);
 });
 
 chrome.webRequest.onBeforeRequest.addListener(
