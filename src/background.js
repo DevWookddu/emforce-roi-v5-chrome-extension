@@ -45,7 +45,8 @@ chrome.webRequest.onBeforeRequest.addListener(
     }
     const pushData = { url };
     if (requestBody) {
-      pushData.params = JSON.parse(decodeURIComponent(String.fromCharCode.apply(null, new Uint8Array(requestBody.raw[0].bytes))));
+      const decodedBody = new TextDecoder().decode(new Uint8Array(requestBody.raw[0].bytes));
+      pushData.params = JSON.parse(decodedBody);
     }
     const list = tabs[tabId];
     list.unshift(pushData);
