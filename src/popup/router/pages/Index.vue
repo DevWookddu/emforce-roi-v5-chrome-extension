@@ -27,6 +27,7 @@
               <span class="card-title">{{ call.params.adv_id }} 전환</span>
               <div class="track">EKAMS: {{ call.params.ekams.split('_')[0] }}</div>
               <div class="track">ID: {{ call.params.adv_conversion_id }}</div>
+              <div class="track">emf_duplicate: {{ call.params.emf_duplicate }}</div>
             </div>
           </div>
         </div>
@@ -45,12 +46,12 @@ export default {
     };
   },
   mounted() {
-    chrome.storage.sync.get(['list'], result => {
+    chrome.storage.local.get(['list'], result => {
       this.list = result.list.map(({ url, params }) => {
         return {
           url,
           query: this.parseQuery(url),
-          params,
+          params: params || {},
         };
       });
     });

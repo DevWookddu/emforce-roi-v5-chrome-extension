@@ -13,12 +13,11 @@ function setBadgeText(val) {
 }
 
 function setListToStorage(list) {
-  chrome.storage.sync.set({
+  chrome.storage.local.set({
     list,
   });
 }
 
-chrome.storage.sync.clear();
 chrome.storage.local.clear();
 
 const tabs = {};
