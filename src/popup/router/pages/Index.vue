@@ -20,14 +20,27 @@
           </div>
         </div>
       </div>
-      <div v-else class="row">
+      <div v-else-if="call.params.ctype === 'v5'" class="row">
         <div class="col s12 m6">
           <div class="card blue-grey darken-1">
             <div class="card-content white-text">
-              <span class="card-title">{{ call.params.adv_id }} 전환</span>
+              <span class="card-title">{{ call.params.adv_id }} 전환 V5</span>
               <div class="track">EKAMS: {{ call.params.ekams.split('_')[0] }}</div>
               <div class="track">ID: {{ call.params.adv_conversion_id }}</div>
               <div class="track">emf_duplicate: {{ call.params.emf_duplicate }}</div>
+              <button @click="view(call)">전환 정보 전체 보기</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-else class="row">
+        <div class="col s12 m6">
+          <div class="card blue-grey lighten-1">
+            <div class="card-content white-text">
+              <span class="card-title">{{ call.query.advertiserId }} 전환 V4</span>
+              <div class="track">EKAMS: {{ call.query.ekams.split('_')[0] }}</div>
+              <div class="track">ID: {{ call.query.roiId }}</div>
+              <button @click="view(call)">전환 정보 전체 보기</button>
             </div>
           </div>
         </div>
@@ -59,7 +72,10 @@ export default {
   methods: {
     parseQuery(url) {
       const query = url.split('?')[1];
-      return queryString.parse(query);
+      return queryString.parse(query || '');
+    },
+    view(call) {
+      alert(JSON.stringify(call));
     },
   },
 };
@@ -76,5 +92,9 @@ export default {
 
 .track {
   font-size: 14px;
+}
+
+button {
+  margin-top: 4px;
 }
 </style>
